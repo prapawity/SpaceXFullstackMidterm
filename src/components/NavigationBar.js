@@ -3,7 +3,9 @@ import { Nav, Icon } from "rsuite";
 import { Link } from "react-router-dom";
 
 const styles = {
-  marginBottom: 50,
+    position: "absolute",
+    right: 0,
+    paddingTop: '20px'
 };
 
 const CustomNav = ({ active, onSelect, ...props }) => {

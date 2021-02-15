@@ -4,7 +4,7 @@ import DefaultButton from '../components/DefaultButton'
 const Home = () => {
     return(
         <div>
-            <DefaultButton />
+            <h1>Home Page</h1>
         </div>
     )
 }

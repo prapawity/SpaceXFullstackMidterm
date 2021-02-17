@@ -6,7 +6,10 @@ const divStyle = {
     backgroundColor: 'black',
     height: '100vh',
     minHeight: '100vh',
-    paddingTop: '60px'
+    paddingTop: '60px',
+    display: 'flex',
+    flexFlow: 'row wrap',
+    justifyContent: 'space-around',
 }
 
 const Rocket = () => {
@@ -26,14 +29,11 @@ const Rocket = () => {
 
     return (
         <div style={divStyle}>
-            <ul>
-                {data.map(rocket => (
-                    <div>
-                        <Card obj={rocket} state={'isRocket'} />
-                    </div>
-                    
-                ))}
-            </ul>
+            {data.map(rocket => (
+                <div style={{ marginTop: '60px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <Card obj={rocket} state={'isRocket'} />
+                </div>
+            ))}
         </div>
     )
 }

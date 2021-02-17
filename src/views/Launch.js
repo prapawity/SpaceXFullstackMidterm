@@ -9,7 +9,10 @@ const divStyle = {
   height: "100vh",
   minHeight: "100vh",
   paddingTop: "60px",
+  
+
 };
+
 
 const Launch = () => {
   const [data, setData] = useState([]);
@@ -26,14 +29,14 @@ const Launch = () => {
   }, []);
   return (
     <div style={divStyle}>
-      <ul>
-        {data.map((launch, index) => (
-          <div key={index}>
-            <h1>{launch.flight_number}</h1>
-            <h2>{launch.mission_name}</h2>
+      <Filter />
+      <div style={{display: 'flex', flexFlow: 'row wrap', justifyContent: 'space-around', marginTop:'10px'}}>
+        {data.map(launch => (
+          <div style={{ paddingLeft: '10px', paddingBottom: '20px' }}>
+            <Card obj={launch} state={'isLaunch'} />
           </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

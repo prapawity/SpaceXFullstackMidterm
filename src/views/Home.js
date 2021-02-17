@@ -15,7 +15,7 @@ const divStyle = {
 const Home = () => {
     return (
         <div style={divStyle}>
-            <Card />
+            
         </div>
         
     )

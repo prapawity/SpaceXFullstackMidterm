@@ -3,25 +3,25 @@ import { Nav, Icon } from "rsuite";
 import { Link } from "react-router-dom";
 
 const styles = {
-    position: "absolute",
-    right: 0,
-    paddingTop: '20px'
+  position: "absolute",
+  right: 0,
+  paddingTop: "20px",
 };
 
 const CustomNav = ({ active, onSelect, ...props }) => {
   return (
     <Nav {...props} activeKey={active} onSelect={onSelect} style={styles}>
-      <Link to="/">
-        <Nav.Item eventKey="home" icon={<Icon icon="home" />}>
-          Home
-        </Nav.Item>
-      </Link>
-      <Link to="/rockets">
-        <Nav.Item eventKey="rocket">Rockets</Nav.Item>
-      </Link>
-      <Link to="/launchs">
-        <Nav.Item eventKey="launch">Launchs</Nav.Item>
-      </Link>
+      <Nav.Item eventKey="home" icon={<Icon icon="home" />}>
+        <Link to="/">Home</Link>
+      </Nav.Item>
+
+      <Nav.Item eventKey="rocket">
+        <Link to="/rockets">Rockets</Link>
+      </Nav.Item>
+
+      <Nav.Item eventKey="launch">
+        <Link to="/launchs">Launchs</Link>
+      </Nav.Item>
     </Nav>
   );
 };

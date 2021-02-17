@@ -1,34 +1,41 @@
-import Card from "../components/Card";
-import Modal from "../components/Modals";
-import { Button, ButtonToolbar } from "rsuite";
-import { useState } from "react";
+import React, { useState, useEffect } from 'react'
+import axios from 'axios';
+import Card from '../components/Card';
 
 const divStyle = {
-  backgroundColor: "black",
-  height: "100vh",
-  paddingTop: "60px",
-};
+    backgroundColor: 'black',
+    height: '100vh',
+    minHeight: '100vh',
+    paddingTop: '60px'
+}
 
 const Rocket = () => {
-  const [stateShowModal, setShowModal] = useState(false);
+    const [data, setData] = useState([]);
 
-  const setShouldUpdateModal = () => {
-    setShowModal(!stateShowModal)
-  }
+    useEffect(() => {
+        const fetchData = async () => {
 
-  return (
-    <div style={divStyle}>
-      <h1>Rocket Page</h1>
-      <div>
-        {/* {elements} */}
-        <Card />
-      </div>
-      <ButtonToolbar>
-        <Button onClick={setShouldUpdateModal}> Open</Button>
-      </ButtonToolbar>
-      <Modal showModal={stateShowModal} updateModalValue={setShowModal}/>
-    </div>
-  );
-};
+            const result = await axios(
+                'https://api.spacexdata.com/v3/rockets',
+            )
+            setData(result.data)
+        };
+        fetchData();
+    },
+        []);
+
+    return (
+        <div style={divStyle}>
+            <ul>
+                {data.map(rocket => (
+                    <div>
+                        <Card obj={rocket} state={'isRocket'} />
+                    </div>
+                    
+                ))}
+            </ul>
+        </div>
+    )
+}
 
 export default Rocket;

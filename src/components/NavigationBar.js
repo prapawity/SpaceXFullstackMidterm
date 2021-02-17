@@ -1,4 +1,4 @@
-import react, { useState } from "react";
+import react, { useEffect, useState } from "react";
 import { Nav, Icon } from "rsuite";
 import { Link } from "react-router-dom";
 
@@ -26,14 +26,14 @@ const CustomNav = ({ active, onSelect, ...props }) => {
   );
 };
 
-const NavigationBar = () => {
-  const [active, setNav] = useState("home");
+const NavigationBar = (props) => {
   const handleSelect = (value) => {
-    setNav(value);
+    props.updateState(value)
+    console.log(value)
   };
   return (
     <div>
-      <CustomNav appearance="tabs" active={active} onSelect={handleSelect} />
+      <CustomNav appearance="tabs" active={props.state} onSelect={handleSelect} />
     </div>
   );
 };

@@ -1,5 +1,4 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import Home from './views/Home';
 import Rocket from './views/Rocket';
 import Launch from './views/Launch';
@@ -14,7 +13,25 @@ import {
 import './App.css';
 import 'rsuite/dist/styles/rsuite-default.css';
 
+
+
 function App() {
+  const [active, setNav] = useState("home");
+  
+  const updateNav = (state) => {
+    setNav(state)
+    console.log(state, "check")
+  }
+
+  useEffect(() => {
+    const stateNav = localStorage.getItem("state-nav")
+    setNav(stateNav)
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem("state-nav", active)
+  }, [active])
+
   let routes = (
     <Switch>
       <Route exact path="/">
@@ -32,7 +49,7 @@ function App() {
   return (
     <Router>
       <div>
-        <NavigationBar />
+        <NavigationBar state={active} updateState={updateNav} />
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         {routes}

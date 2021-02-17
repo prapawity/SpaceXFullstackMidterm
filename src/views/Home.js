@@ -17,7 +17,6 @@ const Home = () => {
         <div style={divStyle}>
             
         </div>
-        
     )
 }
 

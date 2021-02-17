@@ -1,13 +1,18 @@
+import React, { useState, useEffect } from "react";
+import Filter from "../components/Filter";
+import Card from "../components/Card";
+import { FlexboxGrid, Col } from "rsuite";
 import axios from "axios";
-import react, { useEffect, useState } from "react";
+
 const divStyle = {
   backgroundColor: "black",
   height: "100vh",
+  minHeight: "100vh",
   paddingTop: "60px",
 };
+
 const Launch = () => {
   const [data, setData] = useState([]);
-  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {

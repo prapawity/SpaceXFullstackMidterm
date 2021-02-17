@@ -1,39 +1,65 @@
-import react, { useEffect, useState } from "react";
-import { Nav, Icon } from "rsuite";
+import react, { forwardRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Nav, Icon, Navbar } from "rsuite";
 
 const styles = {
   position: "absolute",
   right: 0,
   paddingTop: "20px",
+  backgroundColor: "transparent",
 };
 
-const CustomNav = ({ active, onSelect, ...props }) => {
+const navStyles = {
+  color: "white !important",
+};
+const MyLink = forwardRef((props, ref) => {
+  const { to, as, ...rest } = props;
   return (
-    <Nav {...props} activeKey={active} onSelect={onSelect} style={styles}>
-      <Nav.Item eventKey="home" icon={<Icon icon="home" />}>
-        <Link to="/">Home</Link>
-      </Nav.Item>
-
-      <Nav.Item eventKey="rocket">
-        <Link to="/rockets">Rockets</Link>
-      </Nav.Item>
-
-      <Nav.Item eventKey="launch">
-        <Link to="/launchs">Launchs</Link>
-      </Nav.Item>
-    </Nav>
+    <Link to={to} as={as} style={navStyles}>
+      <a style={navStyles} ref={ref} {...rest} />
+    </Link>
+  );
+});
+const NavBarLink = (props) => (
+  <Nav.Item componentClass={MyLink} to={props.to} eventKey={props.name}>
+    {props.name}
+  </Nav.Item>
+);
+const NavBarInstance = ({ onSelect, activeKey, ...props }) => {
+  return (
+    <Navbar style={styles} {...props}>
+      <Navbar.Body>
+        <Nav onSelect={onSelect} activeKey={activeKey}>
+          <Nav.Item componentClass={Link} to="/" eventKey="Home">
+            Home
+          </Nav.Item>
+          <Nav.Item componentClass={Link} to="/rockets" eventKey="Rocket">
+            Rockets
+          </Nav.Item>
+          <Nav.Item componentClass={Link} to="/launchs" eventKey="Launch">
+            Launchs
+          </Nav.Item>
+        </Nav>
+      </Navbar.Body>
+    </Navbar>
   );
 };
 
 const NavigationBar = (props) => {
-  const handleSelect = (value) => {
-    props.updateState(value)
-    console.log(value)
+  const handleState = (state) => {
+    props.updateState(state);
+    console.log(state);
   };
+
+  console.log(props, "check");
+
   return (
     <div>
-      <CustomNav appearance="tabs" active={props.state} onSelect={handleSelect} />
+      <NavBarInstance
+        appearance="inverse"
+        activeKey={props.state}
+        onSelect={handleState}
+      />
     </div>
   );
 };

@@ -27,8 +27,8 @@ const Launch = () => {
   return (
     <div style={divStyle}>
       <ul>
-        {data.map((launch) => (
-          <div>
+        {data.map((launch, index) => (
+          <div key={index}>
             <h1>{launch.flight_number}</h1>
             <h2>{launch.mission_name}</h2>
           </div>

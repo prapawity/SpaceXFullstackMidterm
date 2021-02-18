@@ -45,3 +45,10 @@ body {
   }
 }
 
+.nav-link {
+  color: white !important;
+}
+
+.nav-link.active {
+  color: black !important;
+}

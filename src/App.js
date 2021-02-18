@@ -9,21 +9,38 @@ import {
   Route,
 } from "react-router-dom";
 import './App.css';
+import LoadingScreen from './components/Loading';
 
 
 
 function App() {
+  const [isLoading, setLoading] = useState(false)
 
+  const removeScrollListener = () => document.removeEventListener('scroll', handleScroll, false);
+  const addScrollListener = () => document.addEventListener('scroll', handleScroll, false);
+
+  const handleScroll = () => {
+    
+  } 
+
+  const setStateLogin = (state) => {
+    if (state) {
+      removeScrollListener()
+    } else {
+      addScrollListener()
+    }
+    setLoading(state)
+  }
   let routes = (
     <Switch>
       <Route exact path="/">
         <Home />
       </Route>
       <Route path="/rockets">
-        <Rocket />
+        <Rocket stateLoading={setStateLogin} />
       </Route>
       <Route path="/launchs">
-        <Launch />
+        <Launch stateLoading={setStateLogin} />
       </Route>
     </Switch>
   );
@@ -32,6 +49,7 @@ function App() {
     <Router>
       <div>
         <NavigationBar />
+        <LoadingScreen isLoading={isLoading} />
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         {routes}

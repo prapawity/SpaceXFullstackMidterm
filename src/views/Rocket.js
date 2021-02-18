@@ -13,7 +13,7 @@ const divStyle = {
   justifyContent: "center",
 };
 
-const Rocket = () => {
+const Rocket = (props) => {
   const [data, setData] = useState([]);
   const [showModal, setShow] = useState({ state: false, id: null });
 
@@ -26,9 +26,17 @@ const Rocket = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios("https://api.spacexdata.com/v3/rockets");
-      setData(result.data);
+      const result = await axios("https://api.spacexdata.com/v3/rockets").then(
+        (response) => {
+          console.log(props);
+          setData(response.data);
+          setTimeout(function() {
+            props.stateLoading(false)
+           }, 3000);           
+        }
+      );
     };
+    props.stateLoading(true);
     fetchData();
   }, []);
 
@@ -36,11 +44,11 @@ const Rocket = () => {
     <div style={divStyle}>
       {data.map((rocket, index) => (
         <div
-          style={{
+          key={index} style={{
             marginTop: "60px",
             overflow: "hidden",
             textOverflow: "ellipsis",
-            marginRight: '1.5rem'
+            marginRight: "1.5rem",
           }}
         >
           <Card obj={rocket} state={"isRocket"} onClick={update} id={index} />

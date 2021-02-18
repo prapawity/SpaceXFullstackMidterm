@@ -52,3 +52,11 @@ body {
 .nav-link.active {
   color: black !important;
 }
+
+.div-loading {
+  width: 100% !important;
+}
+
+#dropdown-item-button {
+  width: 100% !important;
+}

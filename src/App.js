@@ -9,26 +9,10 @@ import {
   Route,
 } from "react-router-dom";
 import './App.css';
-import 'rsuite/dist/styles/rsuite-default.css';
 
 
 
 function App() {
-  const [active, setNav] = useState("home");
-  
-  const updateNav = (state) => {
-    setNav(state)
-    console.log(state, "check")
-  }
-
-  useEffect(() => {
-    const stateNav = localStorage.getItem("state-nav")
-    setNav(stateNav)
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem("state-nav", active)
-  }, [active])
 
   let routes = (
     <Switch>
@@ -47,7 +31,7 @@ function App() {
   return (
     <Router>
       <div>
-        <NavigationBar state={active} updateState={updateNav} />
+        <NavigationBar />
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         {routes}

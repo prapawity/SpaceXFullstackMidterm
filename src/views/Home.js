@@ -1,8 +1,6 @@
 import React from 'react'
-import DefaultButton from '../components/DefaultButton'
 import { Nav, Panel, PanelGroup } from 'rsuite';
 import { render } from 'react-dom';
-import Card from '../components/Card';
 
 const divStyle = {
     background: `url('${process.env.PUBLIC_URL}/img/bg.jpg')`,

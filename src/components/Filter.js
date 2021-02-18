@@ -2,15 +2,15 @@ import { Dropdown, ButtonToolbar } from 'rsuite';
 
 
 const divStyle = {
-    backgroudColor: 'wheat',
+    backgroudColor: 'grey',
     paddingTop: '40px',
-    paddingLeft: '25px'
+    paddingLeft: '25px',
 }
 
 const Filter = (props) => {
     return (
         <ButtonToolbar style={divStyle}>
-            <Dropdown title="Launch year" >
+            <Dropdown title="Launch year">
                 <Dropdown.Item>2006</Dropdown.Item>
                 <Dropdown.Item>2007</Dropdown.Item>
                 <Dropdown.Item>2008</Dropdown.Item>

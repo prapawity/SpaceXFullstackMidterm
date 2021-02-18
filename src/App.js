@@ -8,7 +8,6 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-
 import './App.css';
 import 'rsuite/dist/styles/rsuite-default.css';
 

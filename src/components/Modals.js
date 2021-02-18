@@ -26,17 +26,22 @@ const Modals = (props) => {
       return (
         <div>
           <Modal show={showModal} onHide={hideModal}>
-            <Modal.Header closeButton>
-              <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Header>
+              <Modal.Title>{props.obj.rocket_name}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+            <Modal.Body>
+              <ul>
+                <li><b>Diameter:</b> {props.obj.diameter.meters} meters</li>
+                <li><b>Mass:</b> {props.obj.mass.kg} kg</li>
+                <li><b>Engines type:</b> {props.obj.engines.type} Version {props.obj.engines.version}</li>
+                <li><b>Wikipedia:</b> <a href={props.obj.wikipedia} target="_blank">Click This!</a> </li>
+              </ul>
+              {props.obj.description}
+            </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={hideModal}>
                 Close
-          </Button>
-              <Button variant="primary" onClick={hideModal}>
-                Save Changes
-          </Button>
+              </Button>
             </Modal.Footer>
           </Modal>
 
@@ -45,17 +50,23 @@ const Modals = (props) => {
     } else if (props.state == 'isLaunch') {
       return (
         <Modal show={showModal} onHide={hideModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Header >
+            <Modal.Title>{props.obj.mission_name}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Body>
+            <ul>
+              <li><b>Launch year:</b> {props.obj.launch_year} </li>
+              <li><b>Rocket name:</b> {props.obj.rocket.rocket_name}</li>
+              <li><b>Launch site:</b> {props.obj.launch_site.site_name_long} </li>
+              <li><b>Wikipedia:</b> <a href={props.obj.links.wikipedia} target="_blank">Click This!</a> </li>
+              <li><b>Article:</b> <a href={props.obj.links.article_link} target="_blank">Click This!</a> </li>
+            </ul>
+            {props.obj.details}
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={hideModal}>
               Close
-          </Button>
-            <Button variant="primary" onClick={hideModal}>
-              Save Changes
-          </Button>
+            </Button>
           </Modal.Footer>
         </Modal>
 

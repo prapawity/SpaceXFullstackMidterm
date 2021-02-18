@@ -10,7 +10,7 @@ const divStyle = {
   paddingTop: "60px",
   display: "flex",
   flexFlow: "row wrap",
-  justifyContent: "space-around",
+  justifyContent: "center",
 };
 
 const Rocket = () => {
@@ -40,6 +40,7 @@ const Rocket = () => {
             marginTop: "60px",
             overflow: "hidden",
             textOverflow: "ellipsis",
+            marginRight: '1.5rem'
           }}
         >
           <Card obj={rocket} state={"isRocket"} onClick={update} id={index} />
@@ -55,7 +56,6 @@ const Rocket = () => {
       ) : (
         <div></div>
       )}
-      {/* <Modals obj={data[id]} showModal={showModal} updateModalValue={update} state={'isRocket'}/> */}
     </div>
   );
 };

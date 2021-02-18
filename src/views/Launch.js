@@ -3,6 +3,7 @@ import Filter from "../components/Filter";
 import Card from "../components/Card";
 import axios from "axios";
 import Modals from "../components/Modals";
+import { Row, Col } from 'react-bootstrap'
 
 const divStyle = {
   backgroundColor: "black",
@@ -35,13 +36,15 @@ const Launch = () => {
 
   return (
     <div style={divStyle}>
-      <Filter />
+      <Row xs={1} md={2} style={{ marginTop: '40px' }}>
+        <Col> <Filter /> </Col>
+      </Row>
       <div
         style={{
           display: "flex",
           flexFlow: "row wrap",
           justifyContent: "space-around",
-          marginTop: "10px",
+          marginTop: "20px",
         }}
       >
         {data.map((launch, index) => (
@@ -58,9 +61,8 @@ const Launch = () => {
           state={"isLaunch"}
         />
       ) : (
-        <div />
-      )}
-      {/* <Modals showModal={showModal} updateModalValue={update} state={'isLaunch'} /> */}
+          <div />
+        )}
     </div>
   );
 };

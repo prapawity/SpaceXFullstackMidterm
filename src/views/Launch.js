@@ -40,8 +40,10 @@ const Launch = (props) => {
   };
 
   const fetchNew = () => {
-    setData(data.concat(data));
-    updateStateFilter();
+    setTimeout(() => {
+      setData(data.concat(data));
+      updateStateFilter();
+    }, 1000);
   };
 
   const updateData = (datas) => {

@@ -36,7 +36,7 @@ const Modals = (props) => {
                 <li><b>Engines type:</b> {props.obj.engines.type} Version {props.obj.engines.version}</li>
                 <li><b>Wikipedia:</b> <a href={props.obj.wikipedia} target="_blank">Click This!</a> </li>
               </ul>
-              {props.obj.description}
+              <p>{props.obj.description}</p>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={hideModal}>
@@ -61,7 +61,7 @@ const Modals = (props) => {
               <li><b>Wikipedia:</b> <a href={props.obj.links.wikipedia} target="_blank">Click This!</a> </li>
               <li><b>Article:</b> <a href={props.obj.links.article_link} target="_blank">Click This!</a> </li>
             </ul>
-            {props.obj.details}
+            <p>{props.obj.details}</p>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={hideModal}>

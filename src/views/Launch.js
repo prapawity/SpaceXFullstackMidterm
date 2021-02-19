@@ -3,7 +3,6 @@ import Filter from "../components/Filter";
 import Card from "../components/Card";
 import axios from "axios";
 import Modals from "../components/Modals";
-import { Row, Col, Container } from "react-bootstrap";
 
 const divStyle = {
   backgroundColor: "black",

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Home from './views/Home';
 import Rocket from './views/Rocket';
 import Launch from './views/Launch';

@@ -4,7 +4,6 @@ import TextTruncate from 'react-text-truncate'
 
 
 const CardComponent = (props) => {
-    console.log(props)
     const updateModal = (val) => {
         props.onClick(val, props.id)
     }

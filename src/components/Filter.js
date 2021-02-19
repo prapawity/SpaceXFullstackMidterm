@@ -2,9 +2,6 @@ import react, { useState } from 'react'
 import { Dropdown, DropdownButton, ButtonGroup, Col, Container, Row } from "react-bootstrap"
 
 
-
-
-
 const Filter = (props) => {
     const [launchYear, setLaunchYear] = useState("Launch year")
     const [launchSuccess, setLaunchSuccess] = useState("Launch Success")

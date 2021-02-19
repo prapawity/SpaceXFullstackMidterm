@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Card from "../components/Card";
 import Modals from "../components/Modals";
@@ -48,7 +48,8 @@ const Rocket = (props) => {
             marginTop: "60px",
             overflow: "hidden",
             textOverflow: "ellipsis",
-            marginRight: "1.5rem",
+            marginLeft: "10px",
+            marginRight: "10px"
           }}
         >
           <Card obj={rocket} state={"isRocket"} onClick={update} id={index} />

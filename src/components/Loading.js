@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import FadeIn from "react-fade-in";
 import Lottie from "react-lottie";
 import loadingData from "../loading.json";
@@ -13,9 +12,7 @@ const defaultOptions = {
 };
 
 const LoadingScreen = (props) => {
-  console.log(props, "loading", props.isLoading);
-
-  const emptyDiv = () => <div></div>;
+  const emptyDiv = () => (<div className="empty"></div>);
   return (
     <div>
       {props.isLoading == null

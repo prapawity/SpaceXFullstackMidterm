@@ -1,4 +1,3 @@
-import React from 'react'
 const divStyle = {
     background: `url('${process.env.PUBLIC_URL}/img/bg3.jpg')`,
     backgroundPosition: 'center',

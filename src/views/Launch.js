@@ -3,6 +3,7 @@ import Filter from "../components/Filter";
 import Card from "../components/Card";
 import axios from "axios";
 import Modals from "../components/Modals";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const divStyle = {
   backgroundColor: "black",
@@ -35,14 +36,23 @@ const Launch = (props) => {
       isSuccess: isSuccess,
       rocket: rocket,
     });
-    updateStateFilter(year, isSuccess, rocket)
+    updateStateFilter(year, isSuccess, rocket);
+  };
+
+  const fetchNew = () => {
+    setData(data.concat(data));
+    updateStateFilter();
   };
 
   const updateData = (datas) => {
-    setData(datas)
+    setData(datas);
   };
 
-  const updateStateFilter = (year = filter.year, isSuccess = filter.isSuccess, rocket = filter.rocket) => {
+  const updateStateFilter = (
+    year = filter.year,
+    isSuccess = filter.isSuccess,
+    rocket = filter.rocket
+  ) => {
     const yearData = data.filter((obj) => {
       return year === "Launch year" ? true : obj.launch_year === year;
     });
@@ -85,10 +95,10 @@ const Launch = (props) => {
       );
     };
     if (data.length == 0) {
-        props.stateLoading(true);
-        fetchData();
+      props.stateLoading(true);
+      fetchData();
     } else {
-        updateStateFilter()
+      updateStateFilter();
     }
   }, [data]);
 
@@ -97,23 +107,41 @@ const Launch = (props) => {
       <div style={{ marginTop: "40px" }}>
         <Filter updateFilter={updateFilter} />
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexFlow: "row wrap",
-          justifyContent: "center",
-          marginTop: "20px",
-        }}
+      <InfiniteScroll
+        dataLength={dataShow.length} //This is important field to render the next data
+        next={fetchNew}
+        hasMore={true}
+        loader={<h4>Loading...</h4>}
+        endMessage={
+          <p style={{ textAlign: "center" }}>
+            <b>Yay! You have seen it all</b>
+          </p>
+        }
       >
-        {dataShow.map((launch, index) => (
-          <div
-            key={index}
-            style={{ paddingLeft: "10px", paddingBottom: "20px" }}
-          >
-            <Card obj={launch} state={"isLaunch"} onClick={update} id={index} />
-          </div>
-        ))}
-      </div>
+        <div
+          style={{
+            display: "flex",
+            flexFlow: "row wrap",
+            justifyContent: "center",
+            marginTop: "20px",
+          }}
+        >
+          {dataShow.map((launch, index) => (
+            <div
+              key={index}
+              style={{ paddingLeft: "10px", paddingBottom: "20px" }}
+            >
+              <Card
+                obj={launch}
+                state={"isLaunch"}
+                onClick={update}
+                id={index}
+              />
+            </div>
+          ))}
+        </div>
+      </InfiniteScroll>
+
       {showModal.id != null ? (
         <Modals
           obj={dataShow[showModal.id]}

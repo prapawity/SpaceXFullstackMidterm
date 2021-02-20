@@ -61,10 +61,7 @@ body {
   width: 100% !important;
 }
 
-@font-face {
-  font-family: 'Comfortaa';
-  src: local('Comfortaa'), url(./fonts/Comfortaa.ttf) format('truetype');
-}
+
 
 .homeComponent {
   width: 25%;

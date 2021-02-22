@@ -45,7 +45,6 @@ const Launch = (props) => {
 
   const fetchNew = () => {
     setTimeout(() => {
-      console.log("index", indexShowing)
       if ((indexShowing + 10) < 111) {
         updateIndex(indexShowing+10)
         updateStateFilter();
@@ -53,7 +52,7 @@ const Launch = (props) => {
         updateIndex(110)
         updateStateFilter();
       }
-    }, 500);
+    }, 1000);
   };
 
   const updateData = (datas) => {
@@ -110,7 +109,7 @@ const Launch = (props) => {
         dataLength={dataShow && indexShowing}
         next={fetchNew}
         hasMore={true}
-        loader={<h4>Loading...</h4>}
+        loader={indexShowing == 110 ? <p></p> : <h4>Loading...</h4>}
         endMessage={
           <p style={{ textAlign: "center" }}>
             <b>Yay! You have seen it all</b>
@@ -126,7 +125,6 @@ const Launch = (props) => {
           }}
         >
           {dataShow && dataShow.filter((_, stateIndex) => {
-            console.log("check", stateIndex, indexShowing)
             return stateIndex < indexShowing
           }).map((launch, index) => (
             <div

@@ -34,7 +34,7 @@ function App() {
   let routes = (
     <Switch>
       <Route exact path="/">
-        <Home />
+        <Home stateLoading={setStateLogin} />
       </Route>
       <Route path="/rockets">
         <Rocket stateLoading={setStateLogin} />

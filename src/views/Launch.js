@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Filter from "../components/Filter";
 import Card from "../components/Card";
 import axios from "axios";
 import Modals from "../components/Modals";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { APIManager } from "../APIManager";
 
 const divStyle = {
   backgroundColor: "black",
@@ -14,9 +15,12 @@ const divStyle = {
 };
 
 const Launch = (props) => {
+  const { loading, error, dataFetch: launchs } = APIManager(`/launches`);
+  const [shouldLoading, setShouldLoading] = useState(null);
   const [data, setData] = useState([]);
   const [dataShow, setShowData] = useState([]);
   const [showModal, setShow] = useState({ state: false, id: null });
+  const [indexShowing, updateIndex] = useState(9)
   const [filter, setFilter] = useState({
     year: "Launch year",
     isSuccess: "Launch Success",
@@ -36,24 +40,33 @@ const Launch = (props) => {
       isSuccess: isSuccess,
       rocket: rocket,
     });
-    updateStateFilter(year, isSuccess, rocket);
+    updateStateFilter(year, isSuccess, rocket, true);
   };
 
   const fetchNew = () => {
     setTimeout(() => {
-      setData(data.concat(data));
-      updateStateFilter();
-    }, 1000);
+      console.log("index", indexShowing)
+      if ((indexShowing + 10) < 111) {
+        updateIndex(indexShowing+10)
+        updateStateFilter();
+      } else {
+        updateIndex(110)
+        updateStateFilter();
+      }
+    }, 500);
   };
 
   const updateData = (datas) => {
     setData(datas);
+    updateIndex(10)
+    setShowData(datas)
   };
 
   const updateStateFilter = (
     year = filter.year,
     isSuccess = filter.isSuccess,
-    rocket = filter.rocket
+    rocket = filter.rocket,
+    ShouldUpdateIndex = false
   ) => {
     const yearData = data.filter((obj) => {
       return year === "Launch year" ? true : obj.launch_year === year;
@@ -72,37 +85,21 @@ const Launch = (props) => {
     const resultAll = yearData
       .filter((x) => successData.includes(x))
       .filter((y) => rocketData.includes(y));
-    console.log(
-      data.length,
-      year,
-      isSuccess,
-      rocket,
-      yearData.length,
-      successData.length,
-      rocketData.length,
-      "check"
-    );
+      if (ShouldUpdateIndex) {
+        updateIndex(resultAll.length == 111 ? 10 : resultAll.length)
+      }
     setShowData(resultAll);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios("https://api.spacexdata.com/v3/launches").then(
-        (response) => {
-          updateData(response.data);
-          setTimeout(() => {
-            props.stateLoading(false);
-          }, 3000);
-        }
-      );
-    };
-    if (data.length == 0) {
-      props.stateLoading(true);
-      fetchData();
+  if (shouldLoading != loading) {
+    updateData(launchs);
+    setShouldLoading(loading);
+    if (loading == false) {
+      setTimeout(() => props.stateLoading(false), 1000);
     } else {
-      updateStateFilter();
+      props.stateLoading(true);
     }
-  }, [data]);
+  }
 
   return (
     <div style={divStyle}>
@@ -110,7 +107,7 @@ const Launch = (props) => {
         <Filter updateFilter={updateFilter} />
       </div>
       <InfiniteScroll
-        dataLength={dataShow.length} //This is important field to render the next data
+        dataLength={dataShow && indexShowing}
         next={fetchNew}
         hasMore={true}
         loader={<h4>Loading...</h4>}
@@ -128,7 +125,10 @@ const Launch = (props) => {
             marginTop: "20px",
           }}
         >
-          {dataShow.map((launch, index) => (
+          {dataShow && dataShow.filter((_, stateIndex) => {
+            console.log("check", stateIndex, indexShowing)
+            return stateIndex < indexShowing
+          }).map((launch, index) => (
             <div
               key={index}
               style={{ paddingLeft: "10px", paddingBottom: "20px" }}

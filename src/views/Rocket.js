@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
+import { APIManager } from "../APIManager";
 import Card from "../components/Card";
 import Modals from "../components/Modals";
 
@@ -14,6 +14,8 @@ const divStyle = {
 };
 
 const Rocket = (props) => {
+  const { loading, error, dataFetch: rocket } = APIManager(`/rockets`);
+  const [shouldLoading, setShouldLoading] = useState(null);
   const [data, setData] = useState([]);
   const [showModal, setShow] = useState({ state: false, id: null });
 
@@ -24,32 +26,30 @@ const Rocket = (props) => {
     });
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios("https://api.spacexdata.com/v3/rockets").then(
-        (response) => {
-          console.log(props);
-          setData(response.data);
-          setTimeout(function() {
-            props.stateLoading(false)
-           }, 3000);           
-        }
-      );
-    };
+  if (shouldLoading != loading) {
+    setData(rocket);
+    console.log(rocket, error, loading)
+    setShouldLoading(loading)
+    if (loading == false) {
+      setTimeout(() => props.stateLoading(false), 1000)
+    }else {
+      props.stateLoading(true);
+    }
+  } else if (shouldLoading == null) {
     props.stateLoading(true);
-    fetchData();
-  }, []);
+  }
 
   return (
     <div style={divStyle}>
-      {data.map((rocket, index) => (
+      {data && data.map((rocket, index) => (
         <div
-          key={index} style={{
+          key={index}
+          style={{
             marginTop: "60px",
             overflow: "hidden",
             textOverflow: "ellipsis",
             marginLeft: "10px",
-            marginRight: "10px"
+            marginRight: "10px",
           }}
         >
           <Card obj={rocket} state={"isRocket"} onClick={update} id={index} />

@@ -10,18 +10,22 @@ import {
 } from "react-router-dom";
 import './App.css';
 import LoadingScreen from './components/Loading';
+import RocketDetail from './views/RocketDetail';
 
 
 
 function App() {
   const [isLoading, setLoading] = useState(false)
+  const [isDeepLinkToRocket, setDeepLinkToRocket] = useState(null)
 
   const removeScrollListener = () => document.removeEventListener('scroll', handleScroll, false);
   const addScrollListener = () => document.addEventListener('scroll', handleScroll, false);
 
-  const handleScroll = () => {
-    
+  const deepLinkToRocket = (id) => {
+    setDeepLinkToRocket(id)
   } 
+
+  const handleScroll = () => {}
 
   const setStateLogin = (state) => {
     if (state) {
@@ -36,11 +40,12 @@ function App() {
       <Route exact path="/">
         <Home stateLoading={setStateLogin} />
       </Route>
-      <Route path="/rockets">
+      <Route exact path="/rockets">
         <Rocket stateLoading={setStateLogin} />
       </Route>
+      <Route path={`/rockets/:rocketID`} component={RocketDetail} />
       <Route path="/launchs">
-        <Launch stateLoading={setStateLogin} />
+        <Launch stateLoading={setStateLogin} deepLinkToRocket={deepLinkToRocket}/>
       </Route>
     </Switch>
   );
@@ -48,7 +53,7 @@ function App() {
   return (
     <Router>
       <div>
-        <NavigationBar />
+        <NavigationBar setDeepLinkToRocket={setDeepLinkToRocket} deepLink={isDeepLinkToRocket}/>
         <LoadingScreen isLoading={isLoading} />
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}

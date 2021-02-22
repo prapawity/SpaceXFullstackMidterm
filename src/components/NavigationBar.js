@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Nav } from "react-bootstrap";
 import { LinkContainer } from 'react-router-bootstrap'
 
@@ -7,19 +8,29 @@ const styles = {
   paddingTop: "20px"
 }
 
-const NavigationBar = () => {
+const NavigationBar = (props) => {
+  const [active, setActive] = useState(null)
+
+  if (props.isDeepLink != null) {
+    setActive("rockets")
+    props.setDeepLinkToRocket(null)
+  }
+
+  useEffect(() => {
+
+  }, [active])
 
   return (
     <div style={styles}>
-      <Nav variant="tabs">
+      <Nav activeKey={active} variant="tabs">
         <LinkContainer exact to="/">
-          <Nav.Link eventKey="home" >Home</Nav.Link>
+          <Nav.Link eventKey="home" onSelect={setActive} >Home</Nav.Link>
         </LinkContainer>
         <LinkContainer to="/rockets">
-          <Nav.Link eventKey="rockets" >Rockets</Nav.Link>
+          <Nav.Link eventKey="rockets" onSelect={setActive} >Rockets</Nav.Link>
         </LinkContainer>
-        <LinkContainer to="/launchs">
-          <Nav.Link eventKey="launchs">Launchs</Nav.Link>
+        <LinkContainer exact to="/launchs">
+          <Nav.Link eventKey="launchs" onSelect={setActive} >Launchs</Nav.Link>
         </LinkContainer>
       </Nav>
     </div>

@@ -17,7 +17,6 @@ const Home = (props) => {
         const fetchData = async () => {
           const result = await axios("https://api.spacexdata.com/v3/info").then(
             (response) => {
-              console.log(response.data)
               setData(response.data);
               setTimeout(function() {
                 props.stateLoading(false)

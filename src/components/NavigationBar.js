@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Nav } from "react-bootstrap";
 import { LinkContainer } from 'react-router-bootstrap'
+import { useLocation } from "react-router-dom";
 
 const styles = {
   position: "absolute",
@@ -10,27 +11,25 @@ const styles = {
 
 const NavigationBar = (props) => {
   const [active, setActive] = useState(null)
+  const location = useLocation()
+  const newLocation = location.pathname.split("/")[0]
 
-  if (props.isDeepLink != null) {
-    setActive("rockets")
-    props.setDeepLinkToRocket(null)
+  if (newLocation != active) {
+    setActive(newLocation)
   }
 
-  useEffect(() => {
-
-  }, [active])
 
   return (
     <div style={styles}>
-      <Nav activeKey={active} variant="tabs">
-        <LinkContainer exact to="/">
-          <Nav.Link eventKey="home" onSelect={setActive} >Home</Nav.Link>
+      <Nav activeKey={active} variant="tabs" onSelect={setActive}>
+        <LinkContainer eventKey="home" exact to="/">
+          <Nav.Link>Home</Nav.Link>
         </LinkContainer>
-        <LinkContainer to="/rockets">
-          <Nav.Link eventKey="rockets" onSelect={setActive} >Rockets</Nav.Link>
+        <LinkContainer eventKey="rockets" to="/rockets">
+          <Nav.Link>Rockets</Nav.Link>
         </LinkContainer>
-        <LinkContainer exact to="/launchs">
-          <Nav.Link eventKey="launchs" onSelect={setActive} >Launchs</Nav.Link>
+        <LinkContainer eventKey="launchs" exact to="/launchs">
+          <Nav.Link>Launchs</Nav.Link>
         </LinkContainer>
       </Nav>
     </div>

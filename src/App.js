@@ -7,6 +7,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  BrowserRouter,
 } from "react-router-dom";
 import './App.css';
 import LoadingScreen from './components/Loading';
@@ -16,14 +17,9 @@ import RocketDetail from './views/RocketDetail';
 
 function App() {
   const [isLoading, setLoading] = useState(false)
-  const [isDeepLinkToRocket, setDeepLinkToRocket] = useState(null)
 
   const removeScrollListener = () => document.removeEventListener('scroll', handleScroll, false);
   const addScrollListener = () => document.addEventListener('scroll', handleScroll, false);
-
-  const deepLinkToRocket = (id) => {
-    setDeepLinkToRocket(id)
-  } 
 
   const handleScroll = () => {}
 
@@ -44,22 +40,20 @@ function App() {
         <Rocket stateLoading={setStateLogin} />
       </Route>
       <Route path={`/rockets/:rocketID`} component={RocketDetail} />
-      <Route path="/launchs">
-        <Launch stateLoading={setStateLogin} deepLinkToRocket={deepLinkToRocket}/>
-      </Route>
+      <Route path="/launchs" render={props => <Launch stateLoading={setStateLogin} {...props}/>}/>
     </Switch>
   );
 
   return (
-    <Router>
+    <BrowserRouter>
       <div>
-        <NavigationBar setDeepLinkToRocket={setDeepLinkToRocket} deepLink={isDeepLinkToRocket}/>
+        <NavigationBar />
         <LoadingScreen isLoading={isLoading} />
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         {routes}
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 

@@ -11,7 +11,6 @@ export const APIManager = (uri, options) => {
                 setLoading(true)
                 try {
                     const _ = await axios(`https://api.spacexdata.com/v3${uri}`, options).then(response => {
-                        console.log(response.status)
                         if (response.status !== 200) {
                             setError(new Error(`API Error: status code ${response.status}`))
                         } else {

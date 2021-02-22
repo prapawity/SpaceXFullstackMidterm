@@ -22,7 +22,7 @@ const RocketDetail = (props) => {
         <div style={divStyle}>
             <Jumbotron style={{ backgroundColor: 'black', color: 'white', minHeight: '250px' }}>
                 <Container>
-                    <Row style={{ marginTop:'3rem' }}>
+                    <Row style={{ marginTop:'3rem', width: '100%'}}>
                         <h1>{rocket && rocket.rocket_name}</h1>
                         <p> {rocket && rocket.description} </p>
                     </Row>

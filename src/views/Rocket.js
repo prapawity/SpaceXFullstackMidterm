@@ -19,7 +19,6 @@ const Rocket = (props) => {
 
   if (shouldLoading != loading) {
     setData(rocket);
-    console.log(rocket, error, loading)
     setShouldLoading(loading)
     if (loading == false) {
       setTimeout(() => props.stateLoading(false), 1000)

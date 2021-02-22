@@ -6,9 +6,7 @@ const Filter = (props) => {
     const [launchYear, setLaunchYear] = useState("Launch year")
     const [launchSuccess, setLaunchSuccess] = useState("Launch Success")
     const [rocketName, setRocketName] = useState("Rocket Name")
-    console.log("trst")
     const updateLaunchYear = (year) => {
-        console.log(year)
         props.updateFilter(year, launchSuccess, rocketName)
         setLaunchYear(year)
     }

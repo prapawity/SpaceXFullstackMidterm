@@ -32,7 +32,7 @@ const Home = (props) => {
         <div className='home' style={divStyle}>
             <div className="homeComponent">
                 <p className='home-txt'>
-                    <h1><b>SpaceX</b></h1> 
+                    <h1 className='homeH1'><b>SpaceX</b></h1> 
                     {data && data.summary} <br />
                     <b>Address:</b> {data && data.headquarters && data.headquarters.address}, {data && data.headquarters && data.headquarters.city}, {data && data.headquarters && data.headquarters.state}  <br />
                     <b>CEO:</b> {data.ceo}

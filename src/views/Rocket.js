@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { APIManager } from "../APIManager";
 import Card from "../components/Card";
-import Modals from "../components/Modals";
 
 const divStyle = {
   backgroundColor: "black",
@@ -17,14 +16,6 @@ const Rocket = (props) => {
   const { loading, error, dataFetch: rocket } = APIManager(`/rockets`);
   const [shouldLoading, setShouldLoading] = useState(null);
   const [data, setData] = useState([]);
-  const [showModal, setShow] = useState({ state: false, id: null });
-
-  const update = (val, index = null) => {
-    setShow({
-      state: val,
-      id: index,
-    });
-  };
 
   if (shouldLoading != loading) {
     setData(rocket);
@@ -52,19 +43,9 @@ const Rocket = (props) => {
             marginRight: "10px",
           }}
         >
-          <Card obj={rocket} state={"isRocket"} onClick={update} id={index} />
+          <Card obj={rocket} state={"isRocket"} id={index} />
         </div>
       ))}
-      {showModal.id != null ? (
-        <Modals
-          obj={data[showModal.id]}
-          showModal={showModal}
-          updateModalValue={update}
-          state={"isRocket"}
-        />
-      ) : (
-        <div></div>
-      )}
     </div>
   );
 };

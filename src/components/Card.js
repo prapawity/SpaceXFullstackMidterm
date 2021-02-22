@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 import { Button, Card, Badge } from 'react-bootstrap'
 import TextTruncate from 'react-text-truncate'
 
@@ -16,7 +16,7 @@ const CardComponent = (props) => {
         if (props.state == 'isRocket') {
             return (
                 <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src="/img/rocket.jpeg" onClick={updateModal} />
+                    <Card.Img variant="top" src="/img/rocket.jpeg" />
                     <Card.Body>
                         <Card.Title>{props.obj.rocket_name}</Card.Title>
                         <Card.Text>
@@ -25,10 +25,10 @@ const CardComponent = (props) => {
                                 element="span"
                                 truncateText="…"
                                 text={props.obj.description}
-                                textTruncateChild={<a onClick={updateModal}></a>}
+                                textTruncateChild={<a ></a>}
                             />
                         </Card.Text>
-                        <Button onClick={updateModal} variant="outline-primary" block>Read more</Button>
+                        <Link to={`/rockets/${props.obj.rocket_id}`}><Button variant="outline-primary" block>Read more</Button></Link>
                     </Card.Body>
                 </Card>
             )

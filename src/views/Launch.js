@@ -27,6 +27,10 @@ const Launch = (props) => {
     rocket: "Rocket Name",
   });
 
+  const deepLinkToRocket = (id) => {
+
+  }
+
   const update = (val, index = null) => {
     setShow({
       state: val,
@@ -148,6 +152,7 @@ const Launch = (props) => {
           showModal={showModal}
           updateModalValue={update}
           state={"isLaunch"}
+          deepLinkToRocket={deepLinkToRocket}
         />
       ) : (
         <div />

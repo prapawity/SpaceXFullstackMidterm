@@ -29,7 +29,6 @@ const Rocket = (props) => {
     props.stateLoading(true);
   }
 
-  
   return (
     <div style={divStyle}>
       {data && data.map((rocket, index) => (
